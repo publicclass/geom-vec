@@ -575,10 +575,40 @@ describe('geom',function(){
     })
 
     describe('rot',function(){
-      // to move `a` around `origin`:
-      //  var b = vec.sub(a,origin)
-      //  b = vec.rot(b,theta)
-      //  vec.add(b,origin,a)
+      var a = vec.make(5,5)
+        , m = vec.make(10,10);
+      it('rot(a,Math.PI*2)',function(){
+        vec.rot(a,Math.PI*2).should.not.equal(a)
+        vec.rot(a,Math.PI*2).should.eql(a) // 360!
+      })
+      it('rot(a,Math.PI)',function(){
+        vec.rot(a,Math.PI).should.not.equal(a)
+        vec.rot(a,Math.PI).should.eql([-5,-5])
+      })
+      it('rot(a,-Math.PI,m)',function(){
+        vec.rot(a,-Math.PI,m).should.not.equal(a)
+        vec.rot(a,-Math.PI,m).should.equal(m)
+        vec.rot(a,-Math.PI,m).should.eql([-5,-5])
+      })
+      it('rot(a,Math.PI/2,a)',function(){
+        vec.rot(a,Math.PI/2,a).should.equal(a)
+        vec.rot(a,Math.PI/2,a).should.not.equal(m)
+        vec.rot(a,Math.PI/2,a).should.eql([-5,-5])
+      })
+
+      it('rot(a,Math.PI) (around origin)',function(){
+        var a = vec.make(5,5)
+        var o = vec.make(10,10);
+        var t = vec.sub(a,o)
+        vec.rot(t,Math.PI,t)
+        vec.add(o,t).should.not.equal(a)
+        vec.add(o,t).should.not.equal(t)
+        vec.add(o,t).should.not.equal(o)
+        vec.add(o,t).should.not.eql(o)
+        vec.add(o,t).should.not.eql(t)
+        vec.add(o,t).should.not.eql(a)
+        vec.add(o,t).should.eql([15,15])
+      })
     })
 
     describe('transform',function(){
