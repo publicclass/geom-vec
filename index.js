@@ -7,6 +7,12 @@ var unallocated = []
 // in both memory and speed
 function Vec(x,y){this[0] = x; this[1] = y};
 
+
+// Used by sin/cos to fix floating point precision errors
+// slower, but testable
+var EPS = 1e-12;
+function eps(x){ return Math.round(x/EPS) * EPS }
+
 var vec = module.exports = {
 
   make: function(x,y){
@@ -165,8 +171,8 @@ var vec = module.exports = {
     c = c || vec.make()
     var cos = Math.cos(theta)
       , sin = Math.sin(theta);
-    c[0] = cos * a[0] - sin * a[1];
-    c[1] = sin * a[0] + cos * a[1];
+    c[0] = eps(cos * a[0] - sin * a[1]);
+    c[1] = eps(sin * a[0] + cos * a[1]);
     return c;
   },
 
