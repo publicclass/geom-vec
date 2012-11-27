@@ -145,11 +145,15 @@ var vec = module.exports = {
     return vec.len(vec.sub(a,b));
   },
 
+  distSq: function(a,b){
+    return vec.lenSq(vec.sub(a,b));
+  },
+
   norm: function(a,c){
     c = c || vec.make()
     var l = vec.len(a);
-    c[0] = l == 0 ? 0 : a[0] / l;
-    c[1] = l == 0 ? 0 : a[1] / l;
+    c[0] = !l ? 0 : a[0] / l;
+    c[1] = !l ? 0 : a[1] / l;
     return c;
   },
 

@@ -17,6 +17,7 @@
   "license": "BSD",
   "devDependencies": {
     "should": "~1.2.1",
-    "mocha": "~1.7.1"
+    "mocha": "~1.7.1",
+    "geom-mat": "*"
   }
 }
