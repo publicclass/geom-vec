@@ -609,12 +609,29 @@ describe('geom',function(){
         vec.add(o,t).should.not.eql(a)
         vec.add(o,t).should.eql([15,15])
       })
+
+      after(function(){
+        vec.free(a)
+        vec.free(m)
+      })
     })
 
     describe('transform',function(){
-      it('transform(mat.rotate(Math.PI))')
-      it('transform(mat.scale(5,0))')
-      it('transform(mat.translate(0,5))')
+      var a = vec.make(15,0)
+
+      it('transform(a,mat.rotate(Math.PI))',function(){
+        vec.transform(a,mat.rotate(Math.PI)).should.eql(vec.rot(a,Math.PI))
+      })
+      it('transform(a,mat.scale(5,0))',function(){
+        vec.transform(a,mat.scale(5,0)).should.eql(vec.mul(a,[5,0]))
+      })
+      it('transform(a,mat.translate(0,5))',function(){
+        vec.transform(a,mat.translate(-5,10)).should.eql(vec.add(a,[-5,10]))
+      })
+
+      after(function(){
+        vec.free(a)
+      })
     })
 
   })

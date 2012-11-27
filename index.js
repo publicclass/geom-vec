@@ -190,7 +190,7 @@ var vec = module.exports = {
   // m = mat
   transform: function(a,m,c){
     c = c || vec.make()
-    var x=a[0], y=[1];
+    var x=a[0], y=a[1];
     c[0] = m[0]*x + m[3]*y + m[2]
     c[1] = m[1]*x + m[4]*y + m[5]
     return c;
