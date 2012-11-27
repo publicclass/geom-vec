@@ -1,5 +1,4 @@
-var vec = require('./index')
-  , gc = require('gc');
+var vec = require('./index');
 
 describe('geom',function(){
 
@@ -8,7 +7,7 @@ describe('geom',function(){
     describe('make',function(){
       it('make()',function(){
         vec.make().should.eql([0,0])
-        // vec.make().should.be.length(2)
+        vec.make().should.be.length(2)
       })
       it('make({x:5,y:5})',function(){
         vec.make({x:5,y:5}).should.eql([5,5])
