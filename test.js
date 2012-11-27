@@ -550,28 +550,20 @@ describe('geom',function(){
         vec.lerp(a,b,0).should.not.eql(b)
       })
       it('lerp(a,b,1)',function(){
-        vec.lerp(a,b,1).should.not.equal(a)
-        vec.lerp(a,b,1).should.not.equal(b)
         vec.lerp(a,b,1).should.eql(b)
         vec.lerp(a,b,1).should.not.eql(a)
       })
       it('lerp(a,b,.5)',function(){
-        vec.lerp(a,b,.5).should.not.equal(a)
-        vec.lerp(a,b,.5).should.not.equal(b)
         vec.lerp(a,b,.5).should.not.eql(a)
         vec.lerp(a,b,.5).should.not.eql(b)
         vec.lerp(a,b,.5).should.eql([2,-2.5])
       })
       it('lerp(a,b,-1)',function(){
-        vec.lerp(a,b,-1).should.not.equal(a)
-        vec.lerp(a,b,-1).should.not.equal(b)
         vec.lerp(a,b,-1).should.not.eql(a)
         vec.lerp(a,b,-1).should.not.eql(b)
         vec.lerp(a,b,-1).should.eql([-1,5])
       })
       it('lerp(a,b,2)',function(){
-        vec.lerp(a,b,2).should.not.equal(a)
-        vec.lerp(a,b,2).should.not.equal(b)
         vec.lerp(a,b,2).should.not.eql(a)
         vec.lerp(a,b,2).should.not.eql(b)
         vec.lerp(a,b,2).should.eql([5,-10])

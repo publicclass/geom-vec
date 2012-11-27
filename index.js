@@ -110,7 +110,7 @@ var vec = module.exports = {
   clamp: function(lo,v,hi,c){
     c = c || vec.make()
     vec.min(hi,v,c)
-    vec.max(lo,v,c)
+    vec.max(lo,c,c)
     return c;
   },
 
