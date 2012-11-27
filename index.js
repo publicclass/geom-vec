@@ -31,7 +31,6 @@ var vec = module.exports = {
     if( !unallocated.length ){
       var i = totalAllocated;
       totalAllocated = (totalAllocated || 64) * 2; // double the size (128>256>512 etc)
-      console.log('resizing from %d to %d',i,totalAllocated)
       allocated.length = totalAllocated;
       unallocated.length = totalAllocated;
       while(i < totalAllocated){
