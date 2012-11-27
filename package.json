@@ -1,6 +1,6 @@
 {
   "name": "geom-vec",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A collection of terse, efficient vector tools.",
   "main": "index.js",
   "scripts": {
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/publicclass/geom-vec"
+    "url": "git://github.com/publicclass/geom-vec.git"
   },
   "keywords": [
-    "geometry"
+    "geometry", "vector", "geom", "vec"
   ],
   "author": "Robert Sköld <robert@publicclass>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "should": "~1.2.1",
     "mocha": "~1.7.1",
