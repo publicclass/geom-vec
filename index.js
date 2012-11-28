@@ -32,13 +32,13 @@ var vec = module.exports = {
 
   alloc: function(){
     if( !unallocated.length ){
-      var i = totalAllocated;
+      var i = totalAllocated
+        , u = unallocated.length - i;
       totalAllocated = (totalAllocated || 64) * 2; // double the size (128>256>512 etc)
       allocated.length = totalAllocated;
-      unallocated.length = totalAllocated;
       while(i < totalAllocated){
         var v = [0,0]; //new Array(2); //new Vec(0.0,0.0);
-        unallocated[i] = v;
+        unallocated[u+i] = v;
         allocated[i] = v;
         i++;
       }
@@ -47,7 +47,7 @@ var vec = module.exports = {
   },
 
   free: function(v){
-    unallocated.push(v)
+    v && unallocated.push(v);
     return vec;
   },
 
