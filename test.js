@@ -654,6 +654,11 @@ describe('geom',function(){
       })
     })
 
+    describe('reflect',function(){
+      it('reflect(a,n)')
+      it('reflect(a,n,m)')
+    })
+
   })
 
 })
