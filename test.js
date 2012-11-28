@@ -24,17 +24,37 @@ describe('geom',function(){
         v(5,5).should.eql([5,5])
       })
     })
-
+    var allocated = []
     describe('alloc',function(){
       // TODO test to make sure that this alloc()
       //      is really not GC-friendly.
       it('alloc()',function(){
-        vec.alloc().should.eql([0,0])
+        var v = vec.alloc()
+        v.should.eql([0,0])
+      })
+      it('alloc() * 10000',function(){
+        var a = vec._allocated.length - vec._unallocated.length;
+        for(var i=0; i<10000; i++){
+          var v = vec.alloc()
+          v.should.eql([0,0])
+          allocated.push(v);
+        }
+        var b = vec._allocated.length - vec._unallocated.length;
+        (b-a).should.equal(allocated.length)
       })
     })
     describe('free',function(){
+      it('free(allocated)',function(){
+        var a = vec._allocated.length - vec._unallocated.length;
+        var l = allocated.length;
+        while(allocated.length)
+          vec.free(allocated.pop())
+        var b = vec._allocated.length - vec._unallocated.length;
+        (b-a).should.equal(-l)
+      })
       it('free(v)',function(){
         var v = vec.alloc();
+        v.should.eql([0,0])
         vec.free(v);
       })
     })
