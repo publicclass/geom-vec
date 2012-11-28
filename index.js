@@ -193,5 +193,13 @@ var vec = module.exports = {
     c[0] = m[0]*x + m[3]*y + m[2]
     c[1] = m[1]*x + m[4]*y + m[5]
     return c;
+  },
+
+  reflect: function(v,n,c){
+    c = c || vec.make()
+    var t = vec.dot(v,n);
+    c[0] = v[0] - (2 * t) * n[0];
+    c[1] = v[1] - (2 * t) * n[1];
+    return c;
   }
 }
