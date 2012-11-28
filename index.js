@@ -15,6 +15,9 @@ function eps(x){ return Math.round(x/EPS) * EPS }
 
 var vec = module.exports = {
 
+  _unallocated: unallocated,
+  _allocated: allocated,
+
   make: function(x,y){
     var c = vec.alloc();
     if( typeof x == 'object' ){
