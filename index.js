@@ -36,6 +36,7 @@ var vec = module.exports = {
         , u = unallocated.length - i;
       totalAllocated = (totalAllocated || 64) * 2; // double the size (128>256>512 etc)
       allocated.length = totalAllocated;
+      console.warn('vec alloc',totalAllocated)
       while(i < totalAllocated){
         var v = [0,0]; //new Array(2); //new Vec(0.0,0.0);
         unallocated[u+i] = v;
