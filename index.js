@@ -199,11 +199,17 @@ var vec = module.exports = {
   },
 
   dist: function(a,b){
-    return vec.len(vec.sub(a,b));
+    var d = vec.sub(a,b)
+    var l = vec.len(d)
+    vec.free(d)
+    return l;
   },
 
   distSq: function(a,b){
-    return vec.lenSq(vec.sub(a,b));
+    var d = vec.sub(a,b)
+    var l = vec.lenSq(d)
+    vec.free(d)
+    return l;
   },
 
   norm: function(a,c){
