@@ -59,14 +59,6 @@ var vec = module.exports = {
     return b;
   },
 
-  // subtract two vectors
-  sub: function(a,b,c){
-    c = c || vec.make()
-    c[0] = a[0] - b[0];
-    c[1] = a[1] - b[1];
-    return c;
-  },
-
   add: function(a,b,c){
     c = c || vec.make()
     c[0] = a[0] + b[0];
@@ -74,10 +66,38 @@ var vec = module.exports = {
     return c;
   },
 
+  sadd: function(a,s,c){
+    c = c || vec.make()
+    c[0] = a[0] + s;
+    c[1] = a[1] + s;
+    return c;
+  },
+
+  sub: function(a,b,c){
+    c = c || vec.make()
+    c[0] = a[0] - b[0];
+    c[1] = a[1] - b[1];
+    return c;
+  },
+
+  ssub: function(a,s,c){
+    c = c || vec.make()
+    c[0] = a[0] - s;
+    c[1] = a[1] - s;
+    return c;
+  },
+
   mul: function(a,b,c){
     c = c || vec.make()
-    c[0] =  a[0] * b[0];
-    c[1] =  a[1] * b[1];
+    c[0] = a[0] * b[0];
+    c[1] = a[1] * b[1];
+    return c;
+  },
+
+  smul: function(a,s,c){
+    c = c || vec.make()
+    c[0] = a[0] * s;
+    c[1] = a[1] * s;
     return c;
   },
 
@@ -88,10 +108,10 @@ var vec = module.exports = {
     return c;
   },
 
-  abs: function(a,c){
-    c = c || vec.make()
-    c[0] = Math.abs(a[0])
-    c[1] = Math.abs(a[1])
+  sdiv: function(a,s,c){
+    c = c || vec.make()
+    c[0] = a[0] / s;
+    c[1] = a[1] / s;
     return c;
   },
 
@@ -102,6 +122,13 @@ var vec = module.exports = {
     return c;
   },
 
+  smin: function(a,s,c){
+    c = c || vec.make()
+    c[0] = Math.min(a[0],s)
+    c[1] = Math.min(a[1],s)
+    return c;
+  },
+
   max: function(a,b,c){
     c = c || vec.make()
     c[0] = Math.max(a[0],b[0])
@@ -109,10 +136,10 @@ var vec = module.exports = {
     return c;
   },
 
-  neg: function(a,c){
+  smax: function(a,s,c){
     c = c || vec.make()
-    c[0] = -a[0]
-    c[1] = -a[1]
+    c[0] = Math.max(a[0],s)
+    c[1] = Math.max(a[1],s)
     return c;
   },
 
@@ -120,6 +147,27 @@ var vec = module.exports = {
     c = c || vec.make()
     vec.min(hi,v,c)
     vec.max(lo,c,c)
+    return c;
+  },
+
+  sclamp: function(lo,a,hi,c){
+    c = c || vec.make()
+    vec.min(v,hi,c)
+    vec.max(c,lo,c)
+    return c;
+  },
+
+  abs: function(a,c){
+    c = c || vec.make()
+    c[0] = Math.abs(a[0])
+    c[1] = Math.abs(a[1])
+    return c;
+  },
+
+  neg: function(a,c){
+    c = c || vec.make()
+    c[0] = -a[0]
+    c[1] = -a[1]
     return c;
   },
 
