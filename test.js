@@ -41,6 +41,9 @@ describe('geom',function(){
         }
         var b = vec._allocated.length - vec._unallocated.length;
         (b-a).should.equal(allocated.length)
+
+        for(var i=0; i < vec._unallocated.length; i++)
+          vec._unallocated.should.have.property(i).eql([0,0]);
       })
     })
     describe('free',function(){
@@ -51,6 +54,9 @@ describe('geom',function(){
           vec.free(allocated.pop())
         var b = vec._allocated.length - vec._unallocated.length;
         (b-a).should.equal(-l)
+
+        for(var i=0; i < vec._unallocated.length; i++)
+          vec._unallocated.should.have.property(i).eql([0,0]);
       })
       it('free(v)',function(){
         var v = vec.alloc();
