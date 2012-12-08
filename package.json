@@ -19,5 +19,15 @@
     "should": "~1.2.1",
     "mocha": "~1.7.1",
     "geom-mat": "*"
+  },
+  "testling": {
+    "files": "test.js",
+    "browsers": {
+      "ie": [ 6, 7, 8, 9, 10 ],
+      "firefox": [ 13 ],
+      "chrome": [ 20 ],
+      "safari": [ 5.1 ],
+      "opera": [ 12 ]
+    }
   }
 }
