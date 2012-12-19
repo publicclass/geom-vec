@@ -1,0 +1,494 @@
+<!doctype html>
+<html>
+<head>
+  <title>geom - vec</title>
+</head>
+<body>    <section class="suite">
+      <h1>geom</h1>
+      <dl>
+        <section class="suite">
+          <h1>vec</h1>
+          <dl>
+            <section class="suite">
+              <h1>make</h1>
+              <dl>
+                <dt>make()</dt>
+                <dd><pre><code>vec.make().should.eql([0,0])
+vec.make().should.be.length(2)</code></pre></dd>
+                <dt>make({x:5,y:5})</dt>
+                <dd><pre><code>vec.make({x:5,y:5}).should.eql([5,5])</code></pre></dd>
+                <dt>make([5,5])</dt>
+                <dd><pre><code>vec.make([5,5]).should.eql([5,5])</code></pre></dd>
+                <dt>make(5,5)</dt>
+                <dd><pre><code>vec.make(5,5).should.eql([5,5])</code></pre></dd>
+                <dt>v(5,5)</dt>
+                <dd><pre><code>v(5,5).should.eql([5,5])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>alloc</h1>
+              <dl>
+                <dt>alloc()</dt>
+                <dd><pre><code>var v = vec.alloc()
+v.should.eql([0,0])</code></pre></dd>
+                <dt>alloc() * 10000</dt>
+                <dd><pre><code>var a = vec._allocated.length - vec._unallocated.length;
+for(var i=0; i&lt;10000; i++){
+  var v = vec.alloc()
+  v.should.eql([0,0])
+  allocated.push(v);
+}
+var b = vec._allocated.length - vec._unallocated.length;
+(b-a).should.equal(allocated.length)
+
+for(var i=0; i &lt; vec._unallocated.length; i++)
+  vec._unallocated.should.have.property(i).eql([0,0]);</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>free</h1>
+              <dl>
+                <dt>free(allocated)</dt>
+                <dd><pre><code>var a = vec._allocated.length - vec._unallocated.length;
+var l = allocated.length;
+while(allocated.length)
+  vec.free(allocated.pop())
+var b = vec._allocated.length - vec._unallocated.length;
+(b-a).should.equal(-l)
+
+for(var i=0; i &lt; vec._unallocated.length; i++)
+  vec._unallocated.should.have.property(i).eql([0,0]);</code></pre></dd>
+                <dt>free(v)</dt>
+                <dd><pre><code>var v = vec.alloc();
+v.should.eql([0,0])
+vec.free(v);</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>copy</h1>
+              <dl>
+                <dt>copy(v)</dt>
+                <dd><pre><code>vec.copy(v).should.not.equal(v)
+vec.copy(v).should.eql([1,2])</code></pre></dd>
+                <dt>copy(v,m)</dt>
+                <dd><pre><code>vec.copy(v,m).should.not.equal(v)
+vec.copy(v,m).should.equal(m)
+vec.copy(v,m).should.eql([1,2])</code></pre></dd>
+                <dt>copy(v,v)</dt>
+                <dd><pre><code>vec.copy(v,v).should.equal(v)
+vec.copy(v,v).should.eql([1,2])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>sub</h1>
+              <dl>
+                <dt>sub(a,b)</dt>
+                <dd><pre><code>vec.sub(a,b).should.not.equal(a)
+vec.sub(a,b).should.not.equal(b)
+vec.sub(a,b).should.eql([-2,-2])</code></pre></dd>
+                <dt>sub(a,b,m)</dt>
+                <dd><pre><code>vec.sub(a,b,m).should.not.equal(a)
+vec.sub(a,b,m).should.not.equal(b)
+vec.sub(a,b,m).should.equal(m)
+vec.sub(a,b,m).should.eql([-2,-2])</code></pre></dd>
+                <dt>sub(a,a,m)</dt>
+                <dd><pre><code>vec.sub(a,a,m).should.equal(m)
+vec.sub(a,a,m).should.not.equal(a)
+vec.sub(a,a,m).should.eql([0,0])</code></pre></dd>
+                <dt>sub(a,a)</dt>
+                <dd><pre><code>vec.sub(a,a).should.not.equal(a)
+vec.sub(a,a).should.not.equal(b)
+vec.sub(a,a).should.not.equal(m)
+vec.sub(a,a).should.eql([0,0])</code></pre></dd>
+                <dt>sub(a,b,a)</dt>
+                <dd><pre><code>vec.sub(a,b,a).should.equal(a)       // [-2,-2]
+vec.sub(a,b,a).should.not.equal(b)   // [-5,-6]
+vec.sub(a,b,a).should.not.equal(m)   // [-8,-10]
+vec.sub(a,b,a).should.eql([-11,-14])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>add</h1>
+              <dl>
+                <dt>add(a,b)</dt>
+                <dd><pre><code>vec.add(a,b).should.not.equal(a)
+vec.add(a,b).should.not.equal(b)
+vec.add(a,b).should.eql([4,6])</code></pre></dd>
+                <dt>add(a,b,m)</dt>
+                <dd><pre><code>vec.add(a,b,m).should.not.equal(a)
+vec.add(a,b,m).should.not.equal(b)
+vec.add(a,b,m).should.equal(m)
+vec.add(a,b,m).should.eql([4,6])</code></pre></dd>
+                <dt>add(a,a,m)</dt>
+                <dd><pre><code>vec.add(a,a,m).should.equal(m)
+vec.add(a,a,m).should.not.equal(a)
+vec.add(a,a,m).should.eql([2,4])</code></pre></dd>
+                <dt>add(a,a)</dt>
+                <dd><pre><code>vec.add(a,a).should.not.equal(a)
+vec.add(a,a).should.not.equal(b)
+vec.add(a,a).should.not.equal(m)
+vec.add(a,a).should.eql([2,4])</code></pre></dd>
+                <dt>add(a,b,a)</dt>
+                <dd><pre><code>vec.add(a,b,a).should.equal(a)       // [ 4, 6]
+vec.add(a,b,a).should.not.equal(b)   // [ 7,10]
+vec.add(a,b,a).should.not.equal(m)   // [10,14]
+vec.add(a,b,a).should.eql([13,18])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>mul</h1>
+              <dl>
+                <dt>mul(a,b)</dt>
+                <dd><pre><code>vec.mul(a,b).should.not.equal(a)
+vec.mul(a,b).should.not.equal(b)
+vec.mul(a,b).should.eql([3,8])</code></pre></dd>
+                <dt>mul(a,b,m)</dt>
+                <dd><pre><code>vec.mul(a,b,m).should.not.equal(a)
+vec.mul(a,b,m).should.not.equal(b)
+vec.mul(a,b,m).should.equal(m)
+vec.mul(a,b,m).should.eql([3,8])</code></pre></dd>
+                <dt>mul(a,a,m)</dt>
+                <dd><pre><code>vec.mul(a,a,m).should.equal(m)
+vec.mul(a,a,m).should.not.equal(a)
+vec.mul(a,a,m).should.eql([1,4])</code></pre></dd>
+                <dt>mul(a,a)</dt>
+                <dd><pre><code>vec.mul(a,a).should.not.equal(a)
+vec.mul(a,a).should.not.equal(b)
+vec.mul(a,a).should.not.equal(m)
+vec.mul(a,a).should.eql([1,4])</code></pre></dd>
+                <dt>mul(a,b,a)</dt>
+                <dd><pre><code>vec.mul(a,b,a).should.equal(a)       // [ 3,  8]
+vec.mul(a,b,a).should.not.equal(b)   // [ 9, 32]
+vec.mul(a,b,a).should.not.equal(m)   // [27,128]
+vec.mul(a,b,a).should.eql([81,512])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>div</h1>
+              <dl>
+                <dt>div(a,b)</dt>
+                <dd><pre><code>vec.div(a,b).should.not.equal(a)
+vec.div(a,b).should.not.equal(b)
+vec.div(a,b).should.eql([1/3,2/4])</code></pre></dd>
+                <dt>div(a,b,m)</dt>
+                <dd><pre><code>vec.div(a,b,m).should.not.equal(a)
+vec.div(a,b,m).should.not.equal(b)
+vec.div(a,b,m).should.equal(m)
+vec.div(a,b,m).should.eql([1/3,2/4])</code></pre></dd>
+                <dt>div(a,a,m)</dt>
+                <dd><pre><code>vec.div(a,a,m).should.equal(m)
+vec.div(a,a,m).should.not.equal(a)
+vec.div(a,a,m).should.eql([1,1])</code></pre></dd>
+                <dt>div(a,a)</dt>
+                <dd><pre><code>vec.div(a,a).should.not.equal(a)
+vec.div(a,a).should.not.equal(b)
+vec.div(a,a).should.not.equal(m)
+vec.div(a,a).should.eql([1,1])</code></pre></dd>
+                <dt>div(a,b,a)</dt>
+                <dd><pre><code>vec.div(a,b,a).should.equal(a)       // [    1/3,     2/4]
+vec.div(a,b,a).should.not.equal(b)   // [  1/3/3,   2/4/4]
+vec.div(a,b,a).should.not.equal(m)   // [1/3/3/3, 2/4/4/4]
+vec.div(a,b,a).should.eql([1/3/3/3/3,2/4/4/4/4])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>abs</h1>
+              <dl>
+                <dt>abs(a)</dt>
+                <dd><pre><code>vec.abs(a).should.not.equal(a)
+vec.abs(a).should.not.equal(m)
+vec.abs(a).should.eql([1,2])</code></pre></dd>
+                <dt>abs(a,m)</dt>
+                <dd><pre><code>vec.abs(a,m).should.not.equal(a)
+vec.abs(a,m).should.equal(m)
+vec.abs(a,m).should.eql([1,2])</code></pre></dd>
+                <dt>abs(a,a)</dt>
+                <dd><pre><code>vec.abs(a,a).should.not.equal(m)
+vec.abs(a,a).should.equal(a)
+vec.abs(a,a).should.eql([1,2])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>min</h1>
+              <dl>
+                <dt>min(a,b)</dt>
+                <dd><pre><code>vec.min(a,b).should.not.equal(a)
+vec.min(a,b).should.not.equal(b)
+vec.min(a,b).should.eql([-3,2])</code></pre></dd>
+                <dt>min(a,b,m)</dt>
+                <dd><pre><code>vec.min(a,b,m).should.not.equal(a)
+vec.min(a,b,m).should.not.equal(b)
+vec.min(a,b,m).should.equal(m)
+vec.min(a,b,m).should.eql([-3,2])</code></pre></dd>
+                <dt>min(a,a,m)</dt>
+                <dd><pre><code>vec.min(a,a,m).should.equal(m)
+vec.min(a,a,m).should.not.equal(a)
+vec.min(a,a,m).should.eql([1,2])</code></pre></dd>
+                <dt>min(a,a)</dt>
+                <dd><pre><code>vec.min(a,a).should.not.equal(a)
+vec.min(a,a).should.not.equal(b)
+vec.min(a,a).should.not.equal(m)
+vec.min(a,a).should.eql([1,2])</code></pre></dd>
+                <dt>min(a,b,a)</dt>
+                <dd><pre><code>vec.min(a,b,a).should.equal(a)       // [-3,2]
+vec.min(a,b,a).should.not.equal(b)   // [-3,2]
+vec.min(a,b,a).should.not.equal(m)   // [-3,2]
+vec.min(a,b,a).should.eql([-3,2])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>max</h1>
+              <dl>
+                <dt>max(a,b)</dt>
+                <dd><pre><code>vec.max(a,b).should.not.equal(a)
+vec.max(a,b).should.not.equal(b)
+vec.max(a,b).should.eql([1,4])</code></pre></dd>
+                <dt>max(a,b,m)</dt>
+                <dd><pre><code>vec.max(a,b,m).should.not.equal(a)
+vec.max(a,b,m).should.not.equal(b)
+vec.max(a,b,m).should.equal(m)
+vec.max(a,b,m).should.eql([1,4])</code></pre></dd>
+                <dt>max(a,a,m)</dt>
+                <dd><pre><code>vec.max(a,a,m).should.equal(m)
+vec.max(a,a,m).should.not.equal(a)
+vec.max(a,a,m).should.eql([1,2])</code></pre></dd>
+                <dt>max(a,a)</dt>
+                <dd><pre><code>vec.max(a,a).should.not.equal(a)
+vec.max(a,a).should.not.equal(b)
+vec.max(a,a).should.not.equal(m)
+vec.max(a,a).should.eql([1,2])</code></pre></dd>
+                <dt>max(a,b,a)</dt>
+                <dd><pre><code>vec.max(a,b,a).should.equal(a)       // [1,4]
+vec.max(a,b,a).should.not.equal(b)   // [1,4]
+vec.max(a,b,a).should.not.equal(m)   // [1,4]
+vec.max(a,b,a).should.eql([1,4])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>neg</h1>
+              <dl>
+                <dt>neg(a)</dt>
+                <dd><pre><code>vec.neg(a).should.not.equal(a)
+vec.neg(a).should.not.equal(m)
+vec.neg(a).should.eql([-1,2])</code></pre></dd>
+                <dt>neg(a,m)</dt>
+                <dd><pre><code>vec.neg(a,m).should.not.equal(a)
+vec.neg(a,m).should.equal(m)
+vec.neg(a,m).should.eql([-1,2])</code></pre></dd>
+                <dt>neg(a,a)</dt>
+                <dd><pre><code>vec.neg(a,a).should.not.equal(m) // [-1, 2]
+vec.neg(a,a).should.equal(a)     // [1, -2]
+vec.neg(a,a).should.eql([-1,2])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>clamp</h1>
+              <dl>
+                <dt>clamp(min,a,max)</dt>
+                <dd><pre><code>vec.clamp(min,a,max).should.not.equal(a)
+vec.clamp(min,a,max).should.not.equal(b)
+vec.clamp(min,a,max).should.not.equal(m)
+vec.clamp(min,a,max).should.not.equal(min)
+vec.clamp(min,a,max).should.not.equal(max)
+vec.clamp(min,a,max).should.eql([5,-5])</code></pre></dd>
+                <dt>clamp(min,b,max)</dt>
+                <dd><pre><code>vec.clamp(min,b,max).should.not.equal(a)
+vec.clamp(min,b,max).should.not.equal(b)
+vec.clamp(min,b,max).should.not.equal(m)
+vec.clamp(min,b,max).should.not.equal(min)
+vec.clamp(min,b,max).should.not.equal(max)
+vec.clamp(min,b,max).should.eql([1,-2])</code></pre></dd>
+                <dt>clamp(min,a,max,m)</dt>
+                <dd><pre><code>vec.clamp(min,a,max,m).should.not.equal(a)
+vec.clamp(min,a,max,m).should.not.equal(b)
+vec.clamp(min,a,max,m).should.not.equal(min)
+vec.clamp(min,a,max,m).should.not.equal(max)
+vec.clamp(min,a,max,m).should.equal(m)
+vec.clamp(min,a,max,m).should.eql([5,-5])</code></pre></dd>
+                <dt>clamp(min,a,max,a)</dt>
+                <dd><pre><code>vec.clamp(min,a,max,a).should.equal(a)
+vec.clamp(min,a,max,a).should.not.equal(b)
+vec.clamp(min,a,max,a).should.not.equal(m)
+vec.clamp(min,a,max,a).should.not.equal(min)
+vec.clamp(min,a,max,a).should.not.equal(max)
+vec.clamp(min,a,max,a).should.eql([5,-5])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>perp</h1>
+              <dl>
+                <dt>perp(a)</dt>
+                <dd><pre><code>vec.perp(a).should.not.equal(a)
+vec.perp(a).should.not.equal(m)
+vec.perp(a).should.eql([2,1])</code></pre></dd>
+                <dt>perp(a,m)</dt>
+                <dd><pre><code>vec.perp(a,m).should.not.equal(a)
+vec.perp(a,m).should.equal(m)
+vec.perp(a,m).should.eql([2,1])</code></pre></dd>
+                <dt>perp(a,a)</dt>
+                <dd><pre><code>vec.perp(a,a).should.not.equal(m) // [ 2,1]
+vec.perp(a,a).should.equal(a)     // [-1,2]
+vec.perp(a,a).should.eql([-2,-1])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>cross</h1>
+              <dl>
+                <dt>cross(a,b)</dt>
+                <dd><pre><code>vec.cross(a,b).should.equal(-5)</code></pre></dd>
+                <dt>cross(a,a)</dt>
+                <dd><pre><code>vec.cross(a,a).should.equal(0)</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>dot</h1>
+              <dl>
+                <dt>dot(a,b)</dt>
+                <dd><pre><code>vec.dot(a,b).should.equal(3)</code></pre></dd>
+                <dt>dot(a,a)</dt>
+                <dd><pre><code>vec.dot(a,a).should.equal(1)</code></pre></dd>
+                <dt>dot(perp(a),b) == cross(a,b)</dt>
+                <dd><pre><code>vec.dot(vec.perp(a),b).should.eql(vec.cross(a,b))</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>len</h1>
+              <dl>
+                <dt>len(a)</dt>
+                <dd><pre><code>vec.len(a).should.equal(1)</code></pre></dd>
+                <dt>len(b)</dt>
+                <dd><pre><code>vec.len(b).should.equal(5.830951894845301)</code></pre></dd>
+                <dt>len(c)</dt>
+                <dd><pre><code>vec.len(c).should.equal(0)</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>lenSq</h1>
+              <dl>
+                <dt>lenSq(a)</dt>
+                <dd><pre><code>vec.lenSq(a).should.equal(1)</code></pre></dd>
+                <dt>lenSq(b)</dt>
+                <dd><pre><code>vec.lenSq(b).should.equal(34)</code></pre></dd>
+                <dt>lenSq(c)</dt>
+                <dd><pre><code>vec.lenSq(c).should.equal(0)</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>dist</h1>
+              <dl>
+                <dt>dist(a,b)</dt>
+                <dd><pre><code>vec.dist(a,b).should.equal(5.385164807134504)</code></pre></dd>
+                <dt>dist(b,b)</dt>
+                <dd><pre><code>vec.dist(b,b).should.equal(0)</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>distSq</h1>
+              <dl>
+                <dt>distSq(a,b)</dt>
+                <dd><pre><code>vec.distSq(a,b).should.equal(29)</code></pre></dd>
+                <dt>distSq(b,b)</dt>
+                <dd><pre><code>vec.distSq(b,b).should.equal(0)</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>norm</h1>
+              <dl>
+                <dt>norm(a)</dt>
+                <dd><pre><code>vec.norm(a).should.not.equal(a)
+vec.norm(a).should.not.equal(m)
+vec.norm(a).should.eql([1,0])</code></pre></dd>
+                <dt>norm(b)</dt>
+                <dd><pre><code>var l = vec.len(b);
+vec.norm(b).should.not.equal(a)
+vec.norm(b).should.not.equal(b)
+vec.norm(b).should.not.equal(m)
+vec.norm(b).should.eql([3/l,-5/l])</code></pre></dd>
+                <dt>norm(a,m)</dt>
+                <dd><pre><code>vec.norm(a,m).should.not.equal(a)
+vec.norm(a,m).should.equal(m)
+vec.norm(a,m).should.eql([1,0])</code></pre></dd>
+                <dt>norm(a,a)</dt>
+                <dd><pre><code>vec.norm(a,a).should.not.equal(m) // [1,0]
+vec.norm(a,a).should.equal(a)     // [1,0]
+vec.norm(a,a).should.eql([1,0])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>lerp</h1>
+              <dl>
+                <dt>lerp(a,b,0)</dt>
+                <dd><pre><code>vec.lerp(a,b,0).should.not.equal(a)
+vec.lerp(a,b,0).should.not.equal(b)
+vec.lerp(a,b,0).should.eql(a)
+vec.lerp(a,b,0).should.not.eql(b)</code></pre></dd>
+                <dt>lerp(a,b,1)</dt>
+                <dd><pre><code>vec.lerp(a,b,1).should.eql(b)
+vec.lerp(a,b,1).should.not.eql(a)</code></pre></dd>
+                <dt>lerp(a,b,.5)</dt>
+                <dd><pre><code>vec.lerp(a,b,.5).should.not.eql(a)
+vec.lerp(a,b,.5).should.not.eql(b)
+vec.lerp(a,b,.5).should.eql([2,-2.5])</code></pre></dd>
+                <dt>lerp(a,b,-1)</dt>
+                <dd><pre><code>vec.lerp(a,b,-1).should.not.eql(a)
+vec.lerp(a,b,-1).should.not.eql(b)
+vec.lerp(a,b,-1).should.eql([-1,5])</code></pre></dd>
+                <dt>lerp(a,b,2)</dt>
+                <dd><pre><code>vec.lerp(a,b,2).should.not.eql(a)
+vec.lerp(a,b,2).should.not.eql(b)
+vec.lerp(a,b,2).should.eql([5,-10])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>rot</h1>
+              <dl>
+                <dt>rot(a,Math.PI*2)</dt>
+                <dd><pre><code>vec.rot(a,Math.PI*2).should.not.equal(a)
+vec.rot(a,Math.PI*2).should.eql(a) // 360!</code></pre></dd>
+                <dt>rot(a,Math.PI)</dt>
+                <dd><pre><code>vec.rot(a,Math.PI).should.not.equal(a)
+vec.rot(a,Math.PI).should.eql([-5,-5])</code></pre></dd>
+                <dt>rot(a,-Math.PI,m)</dt>
+                <dd><pre><code>vec.rot(a,-Math.PI,m).should.not.equal(a)
+vec.rot(a,-Math.PI,m).should.equal(m)
+vec.rot(a,-Math.PI,m).should.eql([-5,-5])</code></pre></dd>
+                <dt>rot(a,Math.PI/2,a)</dt>
+                <dd><pre><code>vec.rot(a,Math.PI/2,a).should.equal(a)
+vec.rot(a,Math.PI/2,a).should.not.equal(m)
+vec.rot(a,Math.PI/2,a).should.eql([-5,-5])</code></pre></dd>
+                <dt>rot(a,Math.PI) (around origin)</dt>
+                <dd><pre><code>var a = vec.make(5,5)
+var o = vec.make(10,10);
+var t = vec.sub(a,o)
+vec.rot(t,Math.PI,t)
+vec.add(o,t).should.not.equal(a)
+vec.add(o,t).should.not.equal(t)
+vec.add(o,t).should.not.equal(o)
+vec.add(o,t).should.not.eql(o)
+vec.add(o,t).should.not.eql(t)
+vec.add(o,t).should.not.eql(a)
+vec.add(o,t).should.eql([15,15])</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>transform</h1>
+              <dl>
+                <dt>transform(a,mat.rotate(Math.PI))</dt>
+                <dd><pre><code>vec.transform(a,mat.rotate(Math.PI)).should.eql(vec.rot(a,Math.PI))</code></pre></dd>
+                <dt>transform(a,mat.scale(5,0))</dt>
+                <dd><pre><code>vec.transform(a,mat.scale(5,0)).should.eql(vec.mul(a,[5,0]))</code></pre></dd>
+                <dt>transform(a,mat.translate(0,5))</dt>
+                <dd><pre><code>vec.transform(a,mat.translate(-5,10)).should.eql(vec.add(a,[-5,10]))</code></pre></dd>
+              </dl>
+            </section>
+            <section class="suite">
+              <h1>reflect</h1>
+              <dl>
+              </dl>
+            </section>
+          </dl>
+        </section>
+      </dl>
+    </section>
+</body>
+</html>
