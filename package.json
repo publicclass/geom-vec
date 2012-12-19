@@ -22,7 +22,7 @@
   },
   "testling": {
     "files": "test.js",
-    "harness": "mocha",
+    "harness": "mocha-tdd",
     "browsers": [
       "ie6", "ie7", "ie8", "ie9",
       "firefox/15", "chrome/22", "opera/12", "safari/5.1"
