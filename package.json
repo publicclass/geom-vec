@@ -11,21 +11,32 @@
     "url": "git://github.com/publicclass/geom-vec.git"
   },
   "keywords": [
-    "geometry", "vector", "geom", "vec"
+    "geometry",
+    "vector",
+    "geom",
+    "vec"
   ],
   "author": "Robert Sköld <robert@publicclass>",
   "license": "MIT",
   "devDependencies": {
     "should": "~1.2.1",
     "mocha": "~1.7.1",
-    "geom-mat": "*"
+    "geom-mat": "*",
+    "expect": "0.0.2",
+    "expect.js": "~0.2.0"
   },
   "testling": {
     "files": "test.js",
-    "harness": "mocha-bdd",
+    "harness": "mocha",
     "browsers": [
-      "ie6", "ie7", "ie8", "ie9",
-      "firefox/15", "chrome/22", "opera/12", "safari/5.1"
+      "ie6",
+      "ie7",
+      "ie8",
+      "ie9",
+      "firefox/15",
+      "chrome/22",
+      "opera/12",
+      "safari/5.1"
     ]
   }
 }
