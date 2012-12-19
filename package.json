@@ -19,11 +19,9 @@
   "author": "Robert Sköld <robert@publicclass>",
   "license": "MIT",
   "devDependencies": {
-    "should": "~1.2.1",
-    "mocha": "~1.7.1",
-    "geom-mat": "*",
-    "expect": "0.0.2",
-    "expect.js": "~0.2.0"
+    "mocha": "~1.7.4",
+    "expect.js": "~0.2.0",
+    "geom-mat": "*"
   },
   "testling": {
     "files": "test.js",
