@@ -2,6 +2,8 @@ var vec = require('./index')
   , mat = require('geom-mat')
   , v = vec.make;
 
+mat.verbose = vec.verbose = false;
+
 describe('geom',function(){
 
   describe('vec',function(){

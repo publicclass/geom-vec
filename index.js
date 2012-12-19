@@ -15,6 +15,8 @@ function eps(x){ return Math.round(x/EPS) * EPS }
 
 var vec = module.exports = {
 
+  verbose: true,
+
   _unallocated: unallocated,
   _allocated: allocated,
 
@@ -36,7 +38,7 @@ var vec = module.exports = {
         , u = unallocated.length - i;
       totalAllocated = (totalAllocated || 64) * 2; // double the size (128>256>512 etc)
       allocated.length = totalAllocated;
-      console.warn('vec alloc',totalAllocated)
+      vec.verbose && console.warn('vec alloc',totalAllocated)
       while(i < totalAllocated){
         var v = [0,0]; //new Array(2); //new Vec(0.0,0.0);
         unallocated[u+i] = v;
